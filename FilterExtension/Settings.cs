@@ -1,21 +1,18 @@
-﻿using System.Collections;
-using System.Reflection;
+﻿using FilterExtensions.Utility;
+using System.Collections;
 using System.Collections.Generic;
-
-using FilterExtensions.Utility;
+using System.Reflection;
+using System;
+using KSP.Localization;
 
 namespace FilterExtensions
 {
-    class FESettings : GameParameters.CustomParameterNode
+    internal class Settings : GameParameters.CustomParameterNode
     {
         [GameParameters.CustomParameterUI("Hide unpurchased parts"
             , gameMode = GameParameters.GameMode.CAREER
             , toolTip = "Hide any parts that have been researched but not yet purchased")]
         public bool hideUnpurchased = true;
-
-        [GameParameters.CustomParameterUI("Enable debug logging"
-            , toolTip = "If you encounter a bug, please attempt to reproduce with this setting enabled")]
-        public bool debug = false;
 
         [GameParameters.CustomParameterUI("Default to advanced display"
             , toolTip = "Enable to display both levels of the part categories on entering the editor")]
@@ -31,7 +28,7 @@ namespace FilterExtensions
         public string categoryDefault = string.Empty;
 
         [GameParameters.CustomStringParameterUI("Default subcategory"
-            , toolTip = "The category to open on entering the editor"
+            , toolTip = "The subcategory to open on entering the editor. Will only be populated once a default category is chosen and the window is reopened"
             , lines = 1)]
         public string subCategoryDefault = string.Empty;
 
@@ -75,6 +72,13 @@ namespace FilterExtensions
             }
         }
 
+        public override string DisplaySection
+        {
+            get {
+                return Localizer.Format(Section);
+            }
+        }
+
         public override bool Enabled(MemberInfo member, GameParameters parameters)
         {
             return true;
@@ -88,7 +92,6 @@ namespace FilterExtensions
         public override void SetDifficultyPreset(GameParameters.Preset preset)
         {
             hideUnpurchased = true;
-            debug = false;
             setAdvanced = true;
             replaceFbM = true;
         }
@@ -97,22 +100,21 @@ namespace FilterExtensions
         {
             if (member.Name == "categoryDefault")
             {
-                List<string> categories = new List<string>() { string.Empty };
-                foreach (ConfigNodes.customCategory C in Core.Instance.Categories)
+                var categories = new List<string>() { string.Empty };
+                foreach (CategoryInstance C in LoadAndProcess.Categories)
                 {
-                    categories.Add(C.categoryName);
+                    categories.Add(C.Name);
                 }
                 return categories;
             }
             if (member.Name == "subCategoryDefault")
             {
-                List<string> subcategories = new List<string>() { string.Empty };
-                ConfigNodes.customCategory cat;
-                if (Core.Instance.Categories.TryGetValue(C => C.categoryName == categoryDefault, out cat))
+                var subcategories = new List<string>() { string.Empty };
+                if (LoadAndProcess.Categories.TryGetValue(C => C.Name == categoryDefault, out CategoryInstance cat))
                 {
-                    foreach (ConfigNodes.subCategoryItem sc in cat.subCategories)
+                    foreach (SubCategoryInstance sc in cat.Subcategories)
                     {
-                        subcategories.Add(sc.subcategoryName);
+                        subcategories.Add(sc.Name);
                     }
                 }
                 return subcategories;
