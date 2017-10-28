@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		buildRelease.bat = buildRelease.bat
 		ChangeLog.txt = ChangeLog.txt
 		deploy.bat = deploy.bat
-		GameData\000_FilterExtensions\FilterExtension.version = GameData\000_FilterExtensions\FilterExtension.version
+		GameData\000_FilterExtensions\FilterExtensions.version = GameData\000_FilterExtensions\FilterExtensions.version
 		jenkins.txt = jenkins.txt
 	EndProjectSection
 EndProject
