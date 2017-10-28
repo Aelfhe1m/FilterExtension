@@ -19,7 +19,7 @@
 1:000_FilterExtension, FilterExtension.sversion
 
 # 2:PROJNAME, PROJFILE, VERSIONFILE, PLUGINSFOLDER
-2:FilterExtensions,FilterExtensions/FilterExtension.csproj,FilterExtensions.version,GameData/000_FilterExtensions/Plugins
+2:FilterExtensions,FilterExtensions/FilterExtensions.csproj,FilterExtensions.version,GameData/000_FilterExtensions/Plugins
 
 # 3:SOURCEFILE, DESTDIR
 3:FilterExtensions.version,GameData/000_FilterExtension
