@@ -16,7 +16,7 @@
 #
 
 # 1:GAMEDIR, VERSIONFILE
-1:000_FilterExtension, Plugins.version
+1:000_FilterExtension, FilterExtension.version
 
 # 2:PROJNAME, PROJFILE, VERSIONFILE, PLUGINSFOLDER
 2:FilterExtension,FilterExtension/FilterExtension.csproj,FilterExtension.version,GameData/000_FilterExtension/Plugins
