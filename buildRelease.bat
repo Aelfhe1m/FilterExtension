@@ -2,10 +2,8 @@
 @echo off
 
 rem Set variables here
-
-set H=R:\KSP_1.3.1_dev
 set GAMEDIR=000_FilterExtensions
-
+set GAMEDIR2="000_FilterExtensions_Configs"
 set LICENSE=License.txt
 set README=ReadMe.txt
 
@@ -16,8 +14,6 @@ rem Copy files to GameData locations
 
 
 copy /Y "%1%2" "GameData\%GAMEDIR%\Plugins"
-xcopy /e /y MM_Configs GameData\%GAMEDIR%\MM_Configs
-xcopy /e /y Resources GameData\%GAMEDIR%\Resources
 
 rem copy /Y %GAMEDIR%.version GameData\%GAMEDIR%
 copy /Y ..\MiniAVC.dll GameData\%GAMEDIR%
@@ -28,6 +24,7 @@ if "%README%" NEQ "" copy /Y %README% GameData\%GAMEDIR%
 rem Get Version info
 
 copy GameData\%GAMEDIR%\FilterExtensions.version FilterExtensions.version
+
 set VERSIONFILE=FilterExtensions.version
 rem The following requires the JQ program, available here: https://stedolan.github.io/jq/download/
 c:\local\jq-win64  ".VERSION.MAJOR" %VERSIONFILE% >tmpfile

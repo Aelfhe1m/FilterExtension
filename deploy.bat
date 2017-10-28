@@ -7,11 +7,10 @@ set GAMEDIR2="000_FilterExtensions_Configs"
 
 echo %H%
 
-copy /Y "%1%2" "GameData\%GAMEDIR%\Plugins
-
+copy /Y "%1%2" "GameData\%GAMEDIR%\Plugins"
 
 mkdir "%H%\GameData\%GAMEDIR%"
-xcopy  /E /y GameData\%GAMEDIR% "%H%\GameData\%GAMEDIR%"
+xcopy  /E /y /I GameData\%GAMEDIR% "%H%\GameData\%GAMEDIR%"
 
 xcopy  /E /y /I  GameData\%GAMEDIR2% "%H%\GameData\%GAMEDIR2%"
 
