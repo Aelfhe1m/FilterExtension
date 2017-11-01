@@ -12,7 +12,7 @@ namespace FilterExtensions.Utility
 
         public Span(IList<T> collection, int offset, int length)
         {
-            System.Diagnostics.Debug.Assert(offset + length <= collection.Count, "Span can't cover a larger range than the collection covers");
+            Debug.Assert(offset + length <= collection.Count, "Span can't cover a larger range than the collection covers");
             spanningCollection = collection;
             this.offset = offset;
             Length = length;
@@ -22,12 +22,12 @@ namespace FilterExtensions.Utility
         {
             get
             {
-                System.Diagnostics.Debug.Assert(index < Length, "index out of range");
+                Debug.Assert(index < Length, "index out of range");
                 return spanningCollection[index + offset];
             }
             set 
             {
-                System.Diagnostics.Debug.Assert(index < Length, "index out of range");
+                Debug.Assert(index < Length, "index out of range");
                 spanningCollection[index + offset] = value;
             }
         }
