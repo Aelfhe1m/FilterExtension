@@ -22,8 +22,8 @@
 2:FilterExtensions,FilterExtension/FilterExtensions.csproj,FilterExtensions.version,GameData/000_FilterExtensions/Plugins
 
 # 3:SOURCEFILE, DESTDIR
-3:FilterExtensions.version,GameData/000_FilterExtension
-3:License.txt,GameData/000_FilterExtension
+3:FilterExtensions.version,GameData/000_FilterExtensions
+3:License.txt,GameData/000_FilterExtensions
 
 # 4:SOURCDIR, DESTDIR
 #4:Textures,GameData/ManeuverQueue/Textures
