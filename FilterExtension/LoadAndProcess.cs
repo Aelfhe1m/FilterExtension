@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using KSP.Localization;
 
 namespace FilterExtensions
 {
@@ -97,14 +98,16 @@ namespace FilterExtensions
             {
                 foreach (KeyValuePair<string, string> kvp in SubcategoryNodeModifier.MakeRenamers(node))
                 {
-                    Rename.TryAdd(kvp.Key, kvp.Value);
+                    Rename.TryAdd(kvp.Key, Localizer.Format(kvp.Value));
                 }
             }
             foreach (ConfigNode node in GameDatabase.Instance.GetConfigNodes("FilterSetIcon"))
             {
                 foreach (KeyValuePair<string, string> kvp in SubcategoryNodeModifier.MakeIconChangers(node))
                 {
-                    IconLib.Icon_Alias.TryAdd(kvp.Key, kvp.Value);
+                 
+                        Debug.Log("Key: " + Localizer.Format(kvp.Key) + "    value: " + kvp.Value);
+                    IconLib.Icon_Alias.TryAdd(Localizer.Format(kvp.Key), kvp.Value);
                 }
             }
             foreach (ConfigNode node in GameDatabase.Instance.GetConfigNodes("FilterRemove"))
