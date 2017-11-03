@@ -14,7 +14,7 @@
 #
 # and must use forward slashes
 #
-
+ 
 # 1:GAMEDIR, VERSIONFILE
 1:000_FilterExtensions, FilterExtensions.version
 
