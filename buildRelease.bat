@@ -23,9 +23,9 @@ if "%README%" NEQ "" copy /Y %README% GameData\%GAMEDIR%
 
 rem Get Version info
 
-copy GameData\%GAMEDIR%\FilterExtension.version FilterExtension.version
+copy FilterExtensions.version  GameData\%GAMEDIR%\FilterExtensions.version 
 
-set VERSIONFILE=FilterExtension.version
+set VERSIONFILE=FilterExtensions.version
 rem The following requires the JQ program, available here: https://stedolan.github.io/jq/download/
 c:\local\jq-win64  ".VERSION.MAJOR" %VERSIONFILE% >tmpfile
 set /P major=<tmpfile

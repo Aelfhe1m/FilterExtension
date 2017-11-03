@@ -28,7 +28,7 @@
 	int i2 = 0;
 	string s;
 
-	string versionfile =  @"D:\Users\jbb\github\FilterExtension\GameData\000_FilterExtensions\FilterExtensions.version";
+	string versionfile =  @"D:\Users\jbb\github\FilterExtension\FilterExtensions.version";
 	if (!File.Exists(versionfile))
 	{
 		Write("File: " + versionfile + " missing\n");		
