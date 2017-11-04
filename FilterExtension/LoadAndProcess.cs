@@ -105,8 +105,8 @@ namespace FilterExtensions
             {
                 foreach (KeyValuePair<string, string> kvp in SubcategoryNodeModifier.MakeIconChangers(node))
                 {
-                 
-                        Debug.Log("Key: " + Localizer.Format(kvp.Key.Trim()) + "    value: " + kvp.Value);
+
+                    Logger.Info("Key: " + Localizer.Format(kvp.Key.Trim()) + "    value: " + kvp.Value);
                     IconLib.Icon_Alias.TryAdd(Localizer.Format(kvp.Key.Trim()), kvp.Value);
                 }
             }

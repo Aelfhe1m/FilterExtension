@@ -11,7 +11,7 @@ namespace FilterExtensions.ConfigNodes
 
         public SubCategoryItem(string name, bool useTemplate = true)
         {
-            Debug.Log("SubCategoryItem instantate, name: " + name + " -> " + Localizer.Format(name).Trim());
+            Logger.Info("SubCategoryItem instantate, name: " + name + " -> " + Localizer.Format(name).Trim());
             SubcategoryName = Localizer.Format(name).Trim();
             ApplyTemplate = useTemplate;
         }

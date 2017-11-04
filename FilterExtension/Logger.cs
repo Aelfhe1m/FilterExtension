@@ -44,6 +44,11 @@ namespace FilterExtensions
             Log(format, level, o);
         }
 
+        [System.Diagnostics.Conditional("DEBUG")]
+        internal static void Info(string format)
+        {
+            Log(format, LogLevel.Debug);
+        }
         /// <summary>
         /// Debug.Log with FE id/version inserted
         /// </summary>

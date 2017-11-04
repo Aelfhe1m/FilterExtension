@@ -20,7 +20,7 @@ namespace FilterExtensions.ConfigNodes
 
         public SubcategoryNode(ConfigNode node, LoadAndProcess data)
         {
-            UnityEngine.Debug.Log("SubcategoryNode: name: " + node.GetValue("name") + " -> " + Localizer.Format(node.GetValue("name").Trim()));
+            Logger.Info("SubcategoryNode: name: " + node.GetValue("name") + " -> " + Localizer.Format(node.GetValue("name").Trim()));
             string nameTemp = Localizer.Format(node.GetValue("name").Trim());
             if (!string.IsNullOrEmpty(nameTemp) && data.Rename.ContainsKey(nameTemp))
             {
