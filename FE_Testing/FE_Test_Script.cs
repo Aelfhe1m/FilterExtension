@@ -76,7 +76,7 @@ namespace FE_Testing
         {
             yield return new WaitForSeconds(5); // wait for the editor to complete startup
 
-            PartCategorizer.Category testCat = PartCategorizer.Instance.filters.FirstOrDefault(C => string.Equals(Localizer.Format(C.button.categoryName), testCatName));
+            PartCategorizer.Category testCat = PartCategorizer.Instance.filters.FirstOrDefault(C => string.Equals(Localizer.Format(C.button.categoryName.Trim()), testCatName));
             if (testCat == null)
             {
                 LogTestResult($"Category named \"{testCatName}\" found", false);

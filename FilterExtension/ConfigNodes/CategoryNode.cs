@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using KSP.Localization;
 
 namespace FilterExtensions.ConfigNodes
 {
@@ -125,11 +126,13 @@ namespace FilterExtensions.ConfigNodes
                         int lastSplitIndex = s.LastIndexOf(',');
                         if (lastSplitIndex == splitIndex) // only 2 items, index + cat name
                         {
-                            subs[index] = new SubCategoryItem(s.Substring(splitIndex + 1));
+                            Debug.Log("SubCategoryItem 2, :" + s.Substring(splitIndex + 1) + " -> " + Localizer.Format(s.Substring(splitIndex + 1).Trim()));
+                            subs[index] = new SubCategoryItem(Localizer.Format( s.Substring(splitIndex + 1).Trim()));
                         }
                         else // three items, index + name + "dont template"
                         {
-                            subs[index] = new SubCategoryItem(s.Substring(splitIndex + 1, lastSplitIndex - splitIndex - 1),
+                            Debug.Log("SubCategoryItem 3, :" + s.Substring(splitIndex + 1, lastSplitIndex - splitIndex - 1) + " -> " + Localizer.Format(s.Substring(splitIndex + 1, lastSplitIndex - splitIndex - 1).Trim()));
+                            subs[index] = new SubCategoryItem(Localizer.Format(s.Substring(splitIndex + 1, lastSplitIndex - splitIndex - 1).Trim()),
                                 !string.Equals(s.Substring(lastSplitIndex + 1), "dont template", StringComparison.OrdinalIgnoreCase));
                         }
                     }

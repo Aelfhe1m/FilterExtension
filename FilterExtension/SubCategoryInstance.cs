@@ -26,7 +26,7 @@ namespace FilterExtensions
         /// <param name="allParts"></param>
         public SubCategoryInstance(ConfigNodes.SubcategoryNode protoNode, List<AvailablePart> allParts)
         {
-            Name = Localizer.Format(protoNode.SubCategoryTitle);
+            Name = Localizer.Format(protoNode.SubCategoryTitle.Trim());
             Icon = protoNode.IconName;
             UnpurchasedVisible = protoNode.UnPurchasedOverride;
             foreach (AvailablePart p in allParts)
@@ -49,7 +49,7 @@ namespace FilterExtensions
                 return;
             }
             RUI.Icons.Selectable.Icon icon = IconLib.GetIcon(this);
-            PartCategorizer.AddCustomSubcategoryFilter(cat, Name, Localizer.Format(Name), icon, p => TestPart(p));
+            PartCategorizer.AddCustomSubcategoryFilter(cat, Name, Localizer.Format(Name.Trim()), icon, p => TestPart(p));
         }
 
         /// <summary>

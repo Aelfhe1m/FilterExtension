@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using KSP.Localization;
+using UnityEngine;
 
 namespace FilterExtensions.ConfigNodes
 {
@@ -18,7 +20,8 @@ namespace FilterExtensions.ConfigNodes
 
         public SubcategoryNode(ConfigNode node, LoadAndProcess data)
         {
-            string nameTemp = node.GetValue("name");
+            UnityEngine.Debug.Log("SubcategoryNode: name: " + node.GetValue("name") + " -> " + Localizer.Format(node.GetValue("name").Trim()));
+            string nameTemp = Localizer.Format(node.GetValue("name").Trim());
             if (!string.IsNullOrEmpty(nameTemp) && data.Rename.ContainsKey(nameTemp))
             {
                 nameTemp = data.Rename[nameTemp];

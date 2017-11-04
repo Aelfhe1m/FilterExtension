@@ -1,4 +1,6 @@
 ﻿using System;
+using KSP.Localization;
+using UnityEngine;
 
 namespace FilterExtensions.ConfigNodes
 {
@@ -9,7 +11,8 @@ namespace FilterExtensions.ConfigNodes
 
         public SubCategoryItem(string name, bool useTemplate = true)
         {
-            SubcategoryName = name.Trim();
+            Debug.Log("SubCategoryItem instantate, name: " + name + " -> " + Localizer.Format(name).Trim());
+            SubcategoryName = Localizer.Format(name).Trim();
             ApplyTemplate = useTemplate;
         }
 

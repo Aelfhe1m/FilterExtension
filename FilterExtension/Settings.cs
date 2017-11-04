@@ -75,7 +75,7 @@ namespace FilterExtensions
         public override string DisplaySection
         {
             get {
-                return Localizer.Format(Section);
+                return Localizer.Format(Section.Trim());
             }
         }
 

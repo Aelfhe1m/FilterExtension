@@ -98,7 +98,7 @@ namespace FilterExtensions
             {
                 foreach (KeyValuePair<string, string> kvp in SubcategoryNodeModifier.MakeRenamers(node))
                 {
-                    Rename.TryAdd(kvp.Key, Localizer.Format(kvp.Value));
+                    Rename.TryAdd(kvp.Key, Localizer.Format(kvp.Value.Trim()));
                 }
             }
             foreach (ConfigNode node in GameDatabase.Instance.GetConfigNodes("FilterSetIcon"))
@@ -106,8 +106,8 @@ namespace FilterExtensions
                 foreach (KeyValuePair<string, string> kvp in SubcategoryNodeModifier.MakeIconChangers(node))
                 {
                  
-                        Debug.Log("Key: " + Localizer.Format(kvp.Key) + "    value: " + kvp.Value);
-                    IconLib.Icon_Alias.TryAdd(Localizer.Format(kvp.Key), kvp.Value);
+                        Debug.Log("Key: " + Localizer.Format(kvp.Key.Trim()) + "    value: " + kvp.Value);
+                    IconLib.Icon_Alias.TryAdd(Localizer.Format(kvp.Key.Trim()), kvp.Value);
                 }
             }
             foreach (ConfigNode node in GameDatabase.Instance.GetConfigNodes("FilterRemove"))
@@ -255,7 +255,7 @@ namespace FilterExtensions
                 {
                     filternodes.Add(f.ToConfigNode());
                 }
-                var newSub = new SubcategoryNode(SubcategoryNode.MakeSubcategoryNode("All parts in " + C.CategoryName, C.IconName, false, filternodes), this);
+                var newSub = new SubcategoryNode(SubcategoryNode.MakeSubcategoryNode(Localizer.Format("fe_allPartsIn") + " " + C.CategoryName, C.IconName, false, filternodes), this);
                 subCategoriesDict.Add(newSub.SubCategoryTitle, newSub);
                 C.SubCategories.Insert(0, new SubCategoryItem(newSub.SubCategoryTitle));
             }
