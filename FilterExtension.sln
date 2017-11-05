@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		deploy.bat = deploy.bat
 		FilterExtensions.version = FilterExtensions.version
 		jenkins.txt = jenkins.txt
+		testing.ckan = testing.ckan
 	EndProjectSection
 EndProject
 Global

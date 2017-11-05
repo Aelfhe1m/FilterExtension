@@ -343,7 +343,7 @@ namespace FilterExtensions
             }
 
             var filterByManufacturer = new ConfigNode("CATEGORY");
-            filterByManufacturer.AddValue("name", "Filter by Manufacturer");
+            filterByManufacturer.AddValue("name", Localizer.Format("fe_filterByManufacturer"));
             filterByManufacturer.AddValue("type", "stock");
             filterByManufacturer.AddValue("value", "replace");
             filterByManufacturer.AddNode(manufacturerSubs);

@@ -35,7 +35,7 @@ namespace FilterExtensions.ConfigNodes
 
         public CategoryNode(ConfigNode node, LoadAndProcess data)
         {
-            CategoryName = node.GetValue("name").Trim();
+            CategoryName = Localizer.Format(node.GetValue("name").Trim());
             IconName = node.GetValue("icon");
             if (string.IsNullOrEmpty(IconName))
             {
@@ -69,6 +69,7 @@ namespace FilterExtensions.ConfigNodes
             }
             if (node.TryGetValue("value", ref tmpStr))
             {
+                tmpStr = Localizer.Format(tmpStr);
                 if (string.Equals(tmpStr, "replace", StringComparison.OrdinalIgnoreCase))
                 {
                     Behaviour = CategoryBehaviour.Replace;

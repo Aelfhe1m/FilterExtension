@@ -1,4 +1,5 @@
 ﻿using System;
+using KSP.Localization;
 
 namespace FilterExtensions.ConfigNodes.CheckNodes
 {
@@ -27,10 +28,11 @@ namespace FilterExtensions.ConfigNodes.CheckNodes
             string tmpStr = string.Empty;
             if (node.TryGetValue("value", ref tmpStr) && !string.IsNullOrEmpty(tmpStr))
             {
+               
                 string[] Values = tmpStr.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 for (int i = 0; i < Values.Length; ++i)
                 {
-                    Values[i] = Values[i].Trim();
+                    Values[i] = Localizer.Format(Values[i].Trim());
                 }
                 return Values;
             }
