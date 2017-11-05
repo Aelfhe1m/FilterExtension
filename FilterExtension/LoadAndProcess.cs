@@ -255,7 +255,9 @@ namespace FilterExtensions
                 {
                     filternodes.Add(f.ToConfigNode());
                 }
-                var newSub = new SubcategoryNode(SubcategoryNode.MakeSubcategoryNode(Localizer.Format("fe_allPartsIn") + " " + C.CategoryName, C.IconName, false, filternodes), this);
+//                var newSub = new SubcategoryNode(SubcategoryNode.MakeSubcategoryNode(Localizer.Format("fe_allPartsIn") + " " + C.CategoryName, C.IconName, false, filternodes), this);
+                var newSub = new SubcategoryNode(SubcategoryNode.MakeSubcategoryNode(
+                    Localizer.Format("fe_allPartsIn", C.CategoryName), C.IconName, false, filternodes), this);
                 subCategoriesDict.Add(newSub.SubCategoryTitle, newSub);
                 C.SubCategories.Insert(0, new SubCategoryItem(newSub.SubCategoryTitle));
             }
