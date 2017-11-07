@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using KSP.Localization;
 
 namespace FilterExtensions.ConfigNodes
 {
@@ -9,6 +10,7 @@ namespace FilterExtensions.ConfigNodes
     public class SubcategoryNode : IEquatable<SubcategoryNode>
     {
         public string SubCategoryTitle { get; } // title of this subcategory
+        public string SubCatDisplayName { get;  }
         public string IconName { get; } // default icon to use
         public List<FilterNode> Filters { get; } // Filters are OR'd together (pass if it meets this filter, or this filter)
         public bool UnPurchasedOverride { get; } // allow unpurchased parts to be visible even if the global setting hides them
@@ -19,6 +21,7 @@ namespace FilterExtensions.ConfigNodes
         public SubcategoryNode(ConfigNode node, LoadAndProcess data)
         {
             string nameTemp = node.GetValue("name");
+            SubCatDisplayName = Localizer.Format(node.GetValue("displayName").Trim());
             if (!string.IsNullOrEmpty(nameTemp) && data.Rename.ContainsKey(nameTemp))
             {
                 nameTemp = data.Rename[nameTemp];
@@ -27,6 +30,7 @@ namespace FilterExtensions.ConfigNodes
             if (string.IsNullOrEmpty(SubCategoryTitle))
             {
                 SubCategoryTitle = node.GetValue("categoryName"); // for playing nice with stock generated subcats
+                SubCatDisplayName = SubCategoryTitle + " unconverted";
             }
             IconName = node.GetValue("icon");
             if (string.IsNullOrEmpty(IconName))
@@ -54,6 +58,7 @@ namespace FilterExtensions.ConfigNodes
         {
             Debug.Assert(cloneFrom != null, "subcategory cloned from null");
             SubCategoryTitle = cloneFrom.SubCategoryTitle;
+            SubCatDisplayName = cloneFrom.SubCatDisplayName;
             IconName = cloneFrom.IconName;
             Filters = cloneFrom.Filters;
             UnPurchasedOverride = cloneFrom.UnPurchasedOverride;
@@ -69,6 +74,7 @@ namespace FilterExtensions.ConfigNodes
             var node = new ConfigNode("SUBCATEGORY");
 
             node.AddValue("name", SubCategoryTitle);
+            node.AddValue("displayName", SubCatDisplayName);
             node.AddValue("icon", IconName);
             node.AddValue("showUnpurchased", UnPurchasedOverride);
             foreach (FilterNode f in Filters)
@@ -85,10 +91,11 @@ namespace FilterExtensions.ConfigNodes
         /// <param name="icon"></param>
         /// <param name="filters"></param>
         /// <returns></returns>
-        public static ConfigNode MakeSubcategoryNode(string name, string icon, bool unpurchasedVisible, List<ConfigNode> filters)
+        public static ConfigNode MakeSubcategoryNode(string name, string displayname, string icon, bool unpurchasedVisible, List<ConfigNode> filters)
         {
             var node = new ConfigNode("SUBCATEGORY");
             node.AddValue("name", name);
+            node.AddValue("displayName", displayname);
             node.AddValue("icon", icon);
             node.AddValue("showUnpurchased", unpurchasedVisible);
             foreach (ConfigNode f in filters)

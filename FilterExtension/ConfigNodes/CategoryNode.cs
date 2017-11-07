@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using KSP.Localization;
 
 namespace FilterExtensions.ConfigNodes
 {
@@ -24,6 +25,7 @@ namespace FilterExtensions.ConfigNodes
         }
 
         public string CategoryName { get; }
+        public string CategoryDisplayName { get; }
         public string IconName { get; }
         public Color Colour { get; }
         public CategoryType Type { get; } = CategoryType.NEW;
@@ -34,7 +36,18 @@ namespace FilterExtensions.ConfigNodes
 
         public CategoryNode(ConfigNode node, LoadAndProcess data)
         {
+            Debug.Log("CategoryNode 1");
             CategoryName = node.GetValue("name").Trim();
+            Debug.Log("CategoryNode 2");
+            string s = node.GetValue("displayName");
+            if (s != null)
+            {
+                CategoryDisplayName = Localizer.Format(s.Trim());
+            } else
+            {
+                CategoryDisplayName = "lgg0 " + CategoryName;
+            }
+            Debug.Log("CategoryNode 3");
             IconName = node.GetValue("icon");
             if (string.IsNullOrEmpty(IconName))
             {

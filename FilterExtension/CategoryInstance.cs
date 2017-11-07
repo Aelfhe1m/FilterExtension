@@ -22,7 +22,8 @@ namespace FilterExtensions
 
         public CategoryInstance(CategoryNode protoC, Dictionary<string, SubcategoryNode> allSubCats)
         {
-            Name = Localizer.Format(protoC.CategoryName);
+            // Name = Localizer.Format(protoC.CategoryName);
+            Name = protoC.CategoryDisplayName;
             if (string.IsNullOrEmpty(Name))
             {
                 Logger.Log("Category name is blank", Logger.LogLevel.Warn);
@@ -56,14 +57,16 @@ namespace FilterExtensions
             if (Type == CategoryNode.CategoryType.NEW)
             {
                 RUI.Icons.Selectable.Icon icon = IconLib.GetIcon(this);
-                PartCategorizer.Category category = PartCategorizer.AddCustomFilter(Name, Localizer.Format(Name), icon, Colour);
+//                PartCategorizer.Category category = PartCategorizer.AddCustomFilter(Name, Localizer.Format(Name), icon, Colour);
+                PartCategorizer.Category category = PartCategorizer.AddCustomFilter(Name, Name, icon, Colour);
                 category.displayType = EditorPartList.State.PartsList;
                 category.exclusionFilter = PartCategorizer.Instance.filterGenericNothing;
                 InstanceSubcategories(category);
             }
             else
             {
-                if (!PartCategorizer.Instance.filters.TryGetValue(c => string.Equals(Localizer.Format(c.button.categoryName), Name, StringComparison.OrdinalIgnoreCase),
+//                if (!PartCategorizer.Instance.filters.TryGetValue(c => string.Equals(Localizer.Format(c.button.categoryName), Name, StringComparison.OrdinalIgnoreCase),
+                if (!PartCategorizer.Instance.filters.TryGetValue(c => string.Equals(c.button.categoryName, Name, StringComparison.OrdinalIgnoreCase),
                     out PartCategorizer.Category category))
                 {
                     Logger.Log($"No category of this name was found to manipulate: {Name}", Logger.LogLevel.Warn);

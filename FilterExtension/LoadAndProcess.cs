@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using KSP.Localization;
 
 namespace FilterExtensions
 {
@@ -207,7 +208,7 @@ namespace FilterExtensions
                 }
             }
 
-            CategoryNode Cat = CategoryNodes.Find(C => C.CategoryName == "Filter by Resource");
+            CategoryNode Cat = CategoryNodes.Find(C => C.CategoryName == Localizer.Format("fe_filterByResource")); //  "Filter by Resource");
             if (Cat != null && Cat.Type == CategoryNode.CategoryType.STOCK)
             {
                 foreach (string s in resources)
@@ -223,7 +224,7 @@ namespace FilterExtensions
                     {
                         ConfigNode checkNode = CheckNodeFactory.MakeCheckNode(CheckResource.ID, s);
                         ConfigNode filtNode = FilterNode.MakeFilterNode(false, new List<ConfigNode>(){ checkNode });
-                        ConfigNode subcatNode = SubcategoryNode.MakeSubcategoryNode(name, name, false, new List<ConfigNode>() { filtNode });
+                        ConfigNode subcatNode = SubcategoryNode.MakeSubcategoryNode(name, name, name, false, new List<ConfigNode>() { filtNode });
                         subCategoriesDict.Add(name, new SubcategoryNode(subcatNode, this));
                         Cat.SubCategories.AddUnique(new SubCategoryItem(name));
                     }
@@ -252,7 +253,8 @@ namespace FilterExtensions
                 {
                     filternodes.Add(f.ToConfigNode());
                 }
-                var newSub = new SubcategoryNode(SubcategoryNode.MakeSubcategoryNode("All parts in " + C.CategoryName, C.IconName, false, filternodes), this);
+                string displayName = Localizer.Format("fe_allPartsIn", C.CategoryDisplayName);
+                var newSub = new SubcategoryNode(SubcategoryNode.MakeSubcategoryNode("All parts in " + C.CategoryName, displayName, C.IconName, false, filternodes), this);
                 subCategoriesDict.Add(newSub.SubCategoryTitle, newSub);
                 C.SubCategories.Insert(0, new SubCategoryItem(newSub.SubCategoryTitle));
             }
@@ -290,14 +292,15 @@ namespace FilterExtensions
             {
                 string propList = string.Join(",", ls.ToArray());
                 string name = propList;
+                string displayName;
                 string icon = propList;
                 SetName(ref name);
-
+                displayName = name;
                 if (!string.IsNullOrEmpty(name) && !subCategoriesDict.ContainsKey(name))
                 {
                     var checks = new List<ConfigNode>() { CheckNodeFactory.MakeCheckNode(CheckPropellant.ID, propList, exact: true) };
                     var filters = new List<ConfigNode>() { FilterNode.MakeFilterNode(false, checks) };
-                    var sC = new SubcategoryNode(SubcategoryNode.MakeSubcategoryNode(name, icon, false, filters), this);
+                    var sC = new SubcategoryNode(SubcategoryNode.MakeSubcategoryNode(name, displayName, icon, false, filters), this);
                     subCategoriesDict.Add(name, sC);
                 }
             }
@@ -314,19 +317,21 @@ namespace FilterExtensions
             foreach (string s in modNames)
             {
                 string name = s;
+                string displayName;
                 if (subCategoriesDict.ContainsKey(name))
                 {
                     name = "mod_" + name;
                 }
                 string icon = name;
                 SetName(ref name);
-
+                // May need to add some code here to lcalize modnames?
+                displayName = name;
                 if (!subCategoriesDict.ContainsKey(name))
                 {
                     subCatNames.Add(name);
                     var checks = new List<ConfigNode>() { CheckNodeFactory.MakeCheckNode(CheckFolder.ID, name) };
                     var filters = new List<ConfigNode>() { FilterNode.MakeFilterNode(false, checks) };
-                    var sC = new SubcategoryNode(SubcategoryNode.MakeSubcategoryNode(name, icon, false, filters), this);
+                    var sC = new SubcategoryNode(SubcategoryNode.MakeSubcategoryNode(name, displayName, icon, false, filters), this);
                     subCategoriesDict.Add(name, sC);
                 }
             }
@@ -338,10 +343,11 @@ namespace FilterExtensions
             }
 
             var filterByManufacturer = new ConfigNode("CATEGORY");
-            filterByManufacturer.AddValue("name", "Filter by Manufacturer");
+            filterByManufacturer.AddValue("name", Localizer.Format("fe_filterByManufacturer") /* "Filter by Manufacturer" */);
             filterByManufacturer.AddValue("type", "stock");
             filterByManufacturer.AddValue("value", "replace");
             filterByManufacturer.AddNode(manufacturerSubs);
+            Debug.Log("Before CategoryNode");
             FilterByManufacturer = new CategoryNode(filterByManufacturer, this);
             CategoryNodes.Add(FilterByManufacturer);
         }
