@@ -1,3 +1,15 @@
-1.3.1
+3.1.0 - beta
 	Adoption by LGG
-	Updated for KSP 1.3.1
+	Updated for KSP 3.1.0
+
+3.1.0.6
+	displayName fields added to all configs
+	Following were taken from a post by @evileye.x:
+		New category: 00_Fuel added
+		Added new filter for landing legs that use ModuleAnimateGeneric
+		New mod configs:
+			UniversalStorage
+			SXT
+			SSTU
+			Airplane Plus
+			AIES
