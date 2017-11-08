@@ -45,7 +45,7 @@ namespace FilterExtensions.ConfigNodes
                 CategoryDisplayName = Localizer.Format(s.Trim());
             } else
             {
-                CategoryDisplayName = "lgg0 " + CategoryName;
+                CategoryDisplayName = CategoryName;
             }
             Debug.Log("CategoryNode 3");
             IconName = node.GetValue("icon");
