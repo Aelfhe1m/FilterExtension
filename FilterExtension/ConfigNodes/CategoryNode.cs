@@ -40,7 +40,7 @@ namespace FilterExtensions.ConfigNodes
             CategoryName = node.GetValue("name").Trim();
             Debug.Log("CategoryNode 2");
             string s = node.GetValue("displayName");
-            if (s != null)
+            if (s != null && s != "")
             {
                 CategoryDisplayName = Localizer.Format(s.Trim());
             } else

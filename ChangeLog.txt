@@ -2,7 +2,7 @@
 	Adoption by LGG
 	Updated for KSP 3.1.0
 
-3.1.0.6
+3.1.0.8
 	displayName fields added to all configs
 	Following were taken from a post by @evileye.x:
 		New category: 00_Fuel added
@@ -13,3 +13,7 @@
 			SSTU
 			Airplane Plus
 			AIES
+
+3.1.0.9
+	Updated the NearFutureTechnologies category with the rest of @Nertea's mods
+	Fixed nullref if no displayName was specified for a SubCategory

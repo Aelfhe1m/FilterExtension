@@ -21,7 +21,10 @@ namespace FilterExtensions.ConfigNodes
         public SubcategoryNode(ConfigNode node, LoadAndProcess data)
         {
             string nameTemp = node.GetValue("name");
-            SubCatDisplayName = Localizer.Format(node.GetValue("displayName").Trim());
+            var s = node.GetValue("displayName");
+            if (s == null || s == "")
+                s = nameTemp;
+            SubCatDisplayName = Localizer.Format(s.Trim());
             if (!string.IsNullOrEmpty(nameTemp) && data.Rename.ContainsKey(nameTemp))
             {
                 nameTemp = data.Rename[nameTemp];
