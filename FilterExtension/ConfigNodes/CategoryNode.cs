@@ -36,17 +36,17 @@ namespace FilterExtensions.ConfigNodes
 
         public CategoryNode(ConfigNode node, LoadAndProcess data)
         {
-            Debug.Log("CategoryNode 1");
+            Logger.Log("CategoryNode 1");
             CategoryName = node.GetValue("name").Trim();
-            Debug.Log("CategoryNode 2");
+            Logger.Log("CategoryNode 2");
             string s = node.GetValue("displayName");
             if (s != null && s != "")
                 CategoryDisplayName = Localizer.Format(s.Trim());
             else
                 CategoryDisplayName = CategoryName;
 
-            Debug.Log("CategoryNode, CategoryName: " + CategoryName + ",   displayName: " + CategoryDisplayName);
-            Debug.Log("CategoryNode 3");
+            Logger.Log("CategoryNode, CategoryName: " + CategoryName + ",   displayName: " + CategoryDisplayName);
+            Logger.Log("CategoryNode 3");
             IconName = node.GetValue("icon");
             if (string.IsNullOrEmpty(IconName))
             {
@@ -80,7 +80,7 @@ namespace FilterExtensions.ConfigNodes
             }
             if (node.TryGetValue("value", ref tmpStr))
             {
-                Debug.Log("value: " + tmpStr);
+                Logger.Log("value: " + tmpStr);
                 if (string.Equals(tmpStr, "replace", StringComparison.OrdinalIgnoreCase))
                 {
                     Behaviour = CategoryBehaviour.Replace;
@@ -88,12 +88,12 @@ namespace FilterExtensions.ConfigNodes
                 else if (string.Equals(tmpStr, "engine", StringComparison.OrdinalIgnoreCase))
                 {
                     Behaviour = CategoryBehaviour.Engines;
-                    Debug.Log("engine, CategoryName: " + CategoryName);
+                    Logger.Log("engine, CategoryName: " + CategoryName);
                     foreach (List<string> combo in data.propellantCombos)
                     {
                         string dummy = string.Empty, subcatName = string.Join(",", combo.ToArray());
                         //subcatName = data.SetName(subcatName).displayName;
-                        Debug.Log("engine, subcatName: " + data.SetName(subcatName).displayName);
+                        Logger.Log("engine, subcatName: " + data.SetName(subcatName).displayName);
                         SubCategories.AddUnique(new SubCategoryItem(data.SetName(subcatName).displayName, data.SetName(subcatName).iconName));
                     }
                 }

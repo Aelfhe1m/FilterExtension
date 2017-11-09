@@ -7,6 +7,7 @@ using KSP.UI.Screens;
 using UnityEngine;
 using KSP.Localization;
 
+
 namespace FilterExtensions
 {
     public static class IconLib
@@ -79,26 +80,26 @@ namespace FilterExtensions
 
         public static RUI.Icons.Selectable.Icon GetIcon(SubCategoryInstance subcat)
         {
-            Debug.Log("GetIcon, subcat: " + subcat.Name + ", subcatDisplayName: " + subcat.displayName);
+            Logger.Log("GetIcon, subcat: " + subcat.Name + ", subcatDisplayName: " + subcat.displayName);
             if (Icon_Alias.ContainsKey(subcat.Name))
             {
-                Debug.Log("GetIcon, subcat.Name: " + subcat.Name + ", name found");
+                Logger.Log("GetIcon, subcat.Name: " + subcat.Name + ", name found");
                 return GetIcon(Icon_Alias[subcat.Name]);
             }
             foreach (ConfigNode node in GameDatabase.Instance.GetConfigNodes("FilterRename"))
             {
                 foreach (KeyValuePair<string, ConfigNodes.SubcategoryNodeModifier.FilterIconRename> kvp in ConfigNodes.SubcategoryNodeModifier.MakeRenamers(node))
                 {
-                    Debug.Log("kvp.Value.iconName: " + kvp.Value.iconName + " : subcat.Name: " + subcat.Name);
+                    Logger.Log("kvp.Value.iconName: " + kvp.Value.iconName + " : subcat.Name: " + subcat.Name);
                     if (kvp.Value.iconName == subcat.Name)
                     if (Icon_Alias.ContainsKey(kvp.Value.iconName))
                     {
-                        Debug.Log("GetIcon, subcat.Name: " + subcat.Name + ",  iconName (" + kvp.Value.iconName + ") found in FilterIconRename");
+                            Logger.Log("GetIcon, subcat.Name: " + subcat.Name + ",  iconName (" + kvp.Value.iconName + ") found in FilterIconRename");
                         return GetIcon(Icon_Alias[kvp.Value.iconName]);
                     }
                 }
             }
-            Debug.Log("GetIcon, subcat.Name: " + subcat.Name + ", name NOT found");
+            Logger.Log("GetIcon, subcat.Name: " + subcat.Name + ", name NOT found");
 
             return GetIcon(subcat.Icon);
         }

@@ -291,16 +291,16 @@ namespace FilterExtensions
             foreach (List<string> ls in propellantCombos)
             {
                 string propList = string.Join(",", ls.ToArray());
-                Debug.Log("GenerateEngineTypes: propList: " + propList);
+                Logger.Log("GenerateEngineTypes: propList: " + propList);
                 string displayName;
                 string icon = propList;
                 string name = SetName(propList).displayName ;
                 
                 if (!string.IsNullOrEmpty(name) && !subCategoriesDict.ContainsKey(name))
                 {
-                    Debug.Log("GenerateEngineTypes, name: " + name);
+                    Logger.Log("GenerateEngineTypes, name: " + name);
                     displayName = SetName(propList).iconName;
-                    Debug.Log("GenerateEngineTypes, displayName: " + displayName);
+                    Logger.Log("GenerateEngineTypes, displayName: " + displayName);
 
                     var checks = new List<ConfigNode>() { CheckNodeFactory.MakeCheckNode(CheckPropellant.ID, propList, exact: true) };
                     var filters = new List<ConfigNode>() { FilterNode.MakeFilterNode(false, checks) };
@@ -330,7 +330,7 @@ namespace FilterExtensions
                 if (SetName(name) == null)
                 {
                     if (name != "Squad")
-                        Debug.Log("ProcessFilterBymanufacturer, SetName(" + name + ") is null");
+                        Logger.Log("ProcessFilterBymanufacturer, SetName(" + name + ") is null");
                 }
                 else
                 {
@@ -359,7 +359,7 @@ namespace FilterExtensions
             filterByManufacturer.AddValue("type", "stock");
             filterByManufacturer.AddValue("value", "replace");
             filterByManufacturer.AddNode(manufacturerSubs);
-            Debug.Log("Before CategoryNode");
+            Logger.Log("Before CategoryNode");
             FilterByManufacturer = new CategoryNode(filterByManufacturer, this);
             CategoryNodes.Add(FilterByManufacturer);
         }

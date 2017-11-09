@@ -39,8 +39,8 @@ namespace FilterExtensions.ConfigNodes
             {
                 SubCatDisplayName = Localizer.Format(s.Trim());
             }
-            UnityEngine.Debug.Log("SubCategoryTitle 1: " + SubCategoryTitle);
-            UnityEngine.Debug.Log("SubCatDisplayName 1: " + SubCatDisplayName);
+            Logger.Log("SubCategoryTitle 1: " + SubCategoryTitle);
+            Logger.Log("SubCatDisplayName 1: " + SubCatDisplayName);
 
 
             if (string.IsNullOrEmpty(SubCategoryTitle))
@@ -74,7 +74,7 @@ namespace FilterExtensions.ConfigNodes
         {
             Debug.Assert(cloneFrom != null, "subcategory cloned from null");
             SubCategoryTitle = cloneFrom.SubCategoryTitle;
-            UnityEngine.Debug.Log("SubCategoryTitle 2: " + SubCategoryTitle);
+            Logger.Log("SubCategoryTitle 2: " + SubCategoryTitle);
             SubCatDisplayName = cloneFrom.SubCatDisplayName;
             IconName = cloneFrom.IconName;
             Filters = cloneFrom.Filters;
