@@ -9,9 +9,22 @@ namespace FilterExtensions.ConfigNodes
     public static class SubcategoryNodeModifier
     {
         static readonly string[] splitter = new string[] { "=>" };
-        public static Dictionary<string, string> MakeRenamers(ConfigNode node)
+        static readonly string[] splitter2 = new string[] { "," };
+
+        public class FilterIconRename
         {
-            var renames = new Dictionary<string, string>();
+            public string iconName;
+            public string displayName;
+
+            public FilterIconRename(string i, string d)
+            {
+                iconName = i;
+                displayName = d;
+            }
+        }
+        public static Dictionary<string, FilterIconRename> MakeRenamers(ConfigNode node)
+        {
+            var renames = new Dictionary<string, FilterIconRename>();
             foreach (string s in node.GetValues("name"))
             {
                 string[] split = s.Split(splitter, StringSplitOptions.RemoveEmptyEntries)
@@ -23,7 +36,15 @@ namespace FilterExtensions.ConfigNodes
                 }
                 if (!renames.ContainsKey(split[0]))
                 {
-                    renames.Add(split[0], split[1]);
+                    string[] split2 = split[1].Split(splitter2, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(str => str.Trim()).ToArray();
+                    if (split2.Length != 2)
+                    {
+                        Logger.Log($"bad length in second half of rename string {s}", Logger.LogLevel.Error);
+                        continue;
+                    }
+                    FilterIconRename fir = new FilterIconRename(split2[1], split2[0]);
+                    renames.Add(split[0], fir);
                 }
             }
             return renames;

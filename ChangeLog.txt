@@ -17,3 +17,7 @@
 3.1.0.9
 	Updated the NearFutureTechnologies category with the rest of @Nertea's mods
 	Fixed nullref if no displayName was specified for a SubCategory
+	Added check for empty displayName, if so, set it equal to the SubCategory name
+
+3.1.0.10
+	Fixed engine resources

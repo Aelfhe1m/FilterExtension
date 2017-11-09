@@ -27,9 +27,22 @@ namespace FilterExtensions.ConfigNodes
             SubCatDisplayName = Localizer.Format(s.Trim());
             if (!string.IsNullOrEmpty(nameTemp) && data.Rename.ContainsKey(nameTemp))
             {
-                nameTemp = data.Rename[nameTemp];
+                nameTemp = data.Rename[nameTemp].displayName;
             }
-            SubCategoryTitle = nameTemp;
+            SubCategoryTitle = node.GetValue("name");
+            s = node.GetValue("displayName");
+            if (s == null || s == "")
+            {
+                SubCatDisplayName = SubCategoryTitle;
+            }
+            else
+            {
+                SubCatDisplayName = Localizer.Format(s.Trim());
+            }
+            UnityEngine.Debug.Log("SubCategoryTitle 1: " + SubCategoryTitle);
+            UnityEngine.Debug.Log("SubCatDisplayName 1: " + SubCatDisplayName);
+
+
             if (string.IsNullOrEmpty(SubCategoryTitle))
             {
                 SubCategoryTitle = node.GetValue("categoryName"); // for playing nice with stock generated subcats
@@ -61,6 +74,7 @@ namespace FilterExtensions.ConfigNodes
         {
             Debug.Assert(cloneFrom != null, "subcategory cloned from null");
             SubCategoryTitle = cloneFrom.SubCategoryTitle;
+            UnityEngine.Debug.Log("SubCategoryTitle 2: " + SubCategoryTitle);
             SubCatDisplayName = cloneFrom.SubCatDisplayName;
             IconName = cloneFrom.IconName;
             Filters = cloneFrom.Filters;

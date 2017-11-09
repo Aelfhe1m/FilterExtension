@@ -41,12 +41,11 @@ namespace FilterExtensions.ConfigNodes
             Debug.Log("CategoryNode 2");
             string s = node.GetValue("displayName");
             if (s != null && s != "")
-            {
                 CategoryDisplayName = Localizer.Format(s.Trim());
-            } else
-            {
+            else
                 CategoryDisplayName = CategoryName;
-            }
+
+            Debug.Log("CategoryNode, CategoryName: " + CategoryName + ",   displayName: " + CategoryDisplayName);
             Debug.Log("CategoryNode 3");
             IconName = node.GetValue("icon");
             if (string.IsNullOrEmpty(IconName))
@@ -81,6 +80,7 @@ namespace FilterExtensions.ConfigNodes
             }
             if (node.TryGetValue("value", ref tmpStr))
             {
+                Debug.Log("value: " + tmpStr);
                 if (string.Equals(tmpStr, "replace", StringComparison.OrdinalIgnoreCase))
                 {
                     Behaviour = CategoryBehaviour.Replace;
@@ -88,11 +88,13 @@ namespace FilterExtensions.ConfigNodes
                 else if (string.Equals(tmpStr, "engine", StringComparison.OrdinalIgnoreCase))
                 {
                     Behaviour = CategoryBehaviour.Engines;
+                    Debug.Log("engine, CategoryName: " + CategoryName);
                     foreach (List<string> combo in data.propellantCombos)
                     {
                         string dummy = string.Empty, subcatName = string.Join(",", combo.ToArray());
-                        data.SetName(ref subcatName);
-                        SubCategories.AddUnique(new SubCategoryItem(subcatName));
+                        //subcatName = data.SetName(subcatName).displayName;
+                        Debug.Log("engine, subcatName: " + data.SetName(subcatName).displayName);
+                        SubCategories.AddUnique(new SubCategoryItem(data.SetName(subcatName).displayName, data.SetName(subcatName).iconName));
                     }
                 }
             }

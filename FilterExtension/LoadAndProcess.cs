@@ -23,7 +23,7 @@ namespace FilterExtensions
         public Dictionary<string, List<string>> conflictsDict = new Dictionary<string, List<string>>();
 
         // renaming categories
-        public Dictionary<string, string> Rename = new Dictionary<string, string>();
+        public Dictionary<string, SubcategoryNodeModifier.FilterIconRename> Rename = new Dictionary<string, SubcategoryNodeModifier.FilterIconRename>();
 
         // removing categories
         public HashSet<string> removeSubCategory = new HashSet<string>();
@@ -96,7 +96,7 @@ namespace FilterExtensions
         {
             foreach (ConfigNode node in GameDatabase.Instance.GetConfigNodes("FilterRename"))
             {
-                foreach (KeyValuePair<string, string> kvp in SubcategoryNodeModifier.MakeRenamers(node))
+                foreach (KeyValuePair<string, SubcategoryNodeModifier.FilterIconRename> kvp in SubcategoryNodeModifier.MakeRenamers(node))
                 {
                     Rename.TryAdd(kvp.Key, kvp.Value);
                 }
@@ -291,13 +291,17 @@ namespace FilterExtensions
             foreach (List<string> ls in propellantCombos)
             {
                 string propList = string.Join(",", ls.ToArray());
-                string name = propList;
+                Debug.Log("GenerateEngineTypes: propList: " + propList);
                 string displayName;
                 string icon = propList;
-                SetName(ref name);
-                displayName = name;
+                string name = SetName(propList).displayName ;
+                
                 if (!string.IsNullOrEmpty(name) && !subCategoriesDict.ContainsKey(name))
                 {
+                    Debug.Log("GenerateEngineTypes, name: " + name);
+                    displayName = SetName(propList).iconName;
+                    Debug.Log("GenerateEngineTypes, displayName: " + displayName);
+
                     var checks = new List<ConfigNode>() { CheckNodeFactory.MakeCheckNode(CheckPropellant.ID, propList, exact: true) };
                     var filters = new List<ConfigNode>() { FilterNode.MakeFilterNode(false, checks) };
                     var sC = new SubcategoryNode(SubcategoryNode.MakeSubcategoryNode(name, displayName, icon, false, filters), this);
@@ -323,8 +327,16 @@ namespace FilterExtensions
                     name = "mod_" + name;
                 }
                 string icon = name;
-                SetName(ref name);
-                // May need to add some code here to lcalize modnames?
+                if (SetName(name) == null)
+                {
+                    if (name != "Squad")
+                        Debug.Log("ProcessFilterBymanufacturer, SetName(" + name + ") is null");
+                }
+                else
+                {
+                    name = SetName(name).iconName;
+                }
+                
                 displayName = name;
                 if (!subCategoriesDict.ContainsKey(name))
                 {
@@ -447,12 +459,14 @@ namespace FilterExtensions
         /// </summary>
         /// <param name="name"></param>
         /// <param name="icon"></param>
-        public void SetName(ref string name)
+        public SubcategoryNodeModifier.FilterIconRename SetName(string name)
         {
-            if (Rename.TryGetValue(name, out string tmp))
+            if (Rename.TryGetValue(name, out SubcategoryNodeModifier.FilterIconRename tmp))
             {
-                name = tmp;
+                //name = tmp;
+                return tmp;
             }
+            return null;
         }
     }
 }
